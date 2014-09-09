@@ -153,5 +153,7 @@ return array(
 	'tags_added' => 'tags added',
 	'tag_removed' => 'tag removed',
 	'tags_removed' => 'tags removed',
-	'fileupload_button' => 'Attach Files'
+	'fileupload_button' => 'Attach Files',
+	'subscribe_to_issue_invite'=>'Notify me of activity on this issue via email',
+	'subscribe_to_issue_cancel'=>'Stop notifying me of activity on this issue via email'
 );

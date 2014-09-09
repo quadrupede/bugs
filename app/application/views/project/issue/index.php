@@ -46,7 +46,15 @@
 
 				<div class="clr"></div>
 			</div>
+
 		</li>
+			<form action="" class="subscribe-to-issue-form"><label for="subscribe-to-issue"><input type="checkbox" name="subscribe-to-issue" id="subscribe-to-issue">
+				<?= __('tinyissue.subscribe_to_issue_invite');?></label>
+				<input type="hidden" name="user_id" value="<?= Auth::user()->me(); ?>">
+				<input type="hidden" name="issue_id" value="<?= $issue->id ?>">
+				<input type="hidden" name="project_id" value="<?= $project->id ?>">
+
+				</form>
 
 		<?php foreach($issue->activity() as $activity): ?>
 			<?php echo $activity; ?>

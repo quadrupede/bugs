@@ -114,6 +114,19 @@ $(function() {
 		$('#' + id + ' .issue').show();
 	});
 
+	// User notify
+	$('#subscribe-to-issue').on('change', function()
+	{
+		var data = $(this).parents('form').serialize();
+		console.log(data);
+		$.getJSON(siteurl + 'ajax/notification/notify', data, function(result)
+		{
+			console.log(result);
+		});
+	});
+
+
+
 });
 
 /* Autocomplete for sidebar adding user */
