@@ -117,9 +117,11 @@ class User extends \Eloquent {
 		{
 			$project = array(
 				'detail' => $project,
-				'issues' => \Tag::find(1)->issues()
+				'issues' => Issue::select(array('projects_issues.*'))
+					->left_join('projects_issues_status', 'projects_issues_status.id', '=', 'projects_issues.status_id')
 					->where('project_id', '=', $project->id)
 					->where('assigned_to', '=', $user->id)
+					->where('projects_issues_status.is_open', '=', 1)
 					->get()
 			);
 

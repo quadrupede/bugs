@@ -1,8 +1,10 @@
-# Bugs
-
-[Visit the project](http://pixeline.github.io/bugs/)
+#  Quadrupède Bugs
+Forked From [Pixeline Bugs](http://pixeline.github.io/bugs/)
 
 ![Printscreen](http://pixeline.github.io/bugs/images/bugs-index.png "Main screen")
+
+We made this fork for our own needs. We don't have plans for adding big features but only for little enhancements.
+Do whatever you want with this code.
 
 # Installing Bugs
 
@@ -22,24 +24,18 @@ Enjoy!
 - MCrypt Extension for PHP
 - Javascript Enabled - Bugs also uses heavy Javascript to make it easier to use
 
-### How to contribute
-
-We welcome and appreciate all contributions. The `develop` branch is the branch you should base all pull requests and development off of.
-The `master` branch is tagged releases only.
 
 # Changelog
 
-- v1.2 : 28 August 2014: 
-	- French translation updates
-	- Various fixes
-	- Multilingual email (code by [Wolfgang Gassler](http://wolfgang.gassler.org/) - [source](https://github.com/mikelbring/tinyissue/pull/197))
-	- Kanban-style planning board (code by [Steve McCullough](http://irrational.ca/) - [source](https://github.com/mikelbring/tinyissue/pull/194))
-- v1.1 : 26 August 2014: 
-	- Tags (code by [Anton Kanevsky](http://about.me/akanevsky) - [source](https://github.com/mikelbring/tinyissue/pull/180) )
-	- Visual identity. Project rebaptized Bugs. As in "Hugs", with a B.
-- v1.0 : 25 August 2014:
-	- project forked from Tiny Issue 1.3, by [Michael Hasselbring](http://michaelhasselbring.com), [Zachary Hoover](http://zachoover.com) and [Suthan Sangaralingham](http://suthanwebs.com/)
+- v1.1 : 11 December 2014:
+	- Issues can have real status (do not use status tag anymore)
+	- Issues can have priority
+	- Refactor some code
+	- Enabled/Disabled Kanban feature in config (we do not use this feature, may it do not works anymore)
+
+- v1.0 : 02 December 2014:
+	- project forked from Pixeline Bugs (forked Tiny Issue 1.3)
 
 # Main Developers
 
-- [Alexandre Plennevaux](https://pixeline.be)
+- [Jordi Dosne](https://quadrupede.com)

@@ -2,6 +2,11 @@
 
 return array(
 
+	/**
+	 * Activate kanban or not
+	 */
+	'use_kanban' => false,
+
 	/*
 	|--------------------------------------------------------------------------
 	| File Uploads

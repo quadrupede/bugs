@@ -26,7 +26,7 @@
 				<ul class="projects">
 					<?php foreach($projects as $row):
 						$issues = $row->count_open_issues();
-						$closedissues = $row->issues()->where('status', '=', 0)->count();
+						$closedissues = $row->issues()->where('status_id', '=', \Project\Issue\Status::STATUS_CLOSED)->count();
 						$dayspassed = (date("U") - date("U",strtotime($row->created_at)))/86400;
 						$velocity = number_format($closedissues/$dayspassed,2);
 						$etcday = 0;

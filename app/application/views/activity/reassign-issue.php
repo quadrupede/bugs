@@ -1,7 +1,7 @@
 <li onclick="window.location='<?php echo $issue->to(); ?>';">
 
 	<div class="tag">
-		<label class="label warning"><?php echo __('tinyissue.label_reassigned'); ?></label>
+		<label class="label status-reassigned"><?php echo __('tinyissue.label_reassigned'); ?></label>
 	</div>
 
 	<div class="data">
@@ -15,7 +15,7 @@
 		<strong><?php echo $user->firstname . ' ' . $user->lastname; ?></strong>
 
 		<span class="time">
-			<?php echo date('F jS \a\t g:i A', strtotime($activity->created_at)); ?>
+			<span class="moment"><?php echo strtotime($activity->created_at); ?></span>
 		</span>
 	</div>
 

@@ -5,13 +5,13 @@ class Todo_Controller extends Base_Controller {
 	public function get_index()
 	{
 		// @TODO Make configurable. Global or per-user?
-		$status_codes = array(
-			0 => __('tinyissue.todo_status_0'),
-			1 => __('tinyissue.todo_status_1'),
-			2 => __('tinyissue.todo_status_2'),
-			3 => __('tinyissue.todo_status_3'),
-		);
-		
+		$status_codes = array();
+		$statuses = \Project\Issue\Status::order_by('workflow_order', 'ASC')->get();
+		foreach( $statuses as $status)
+		{
+			$status_codes[$status->id] = __('tinyissue.label_'.$status->name);
+		}
+
 		// Ensure we have an entry for each lane. 
 		$lanes = array();
 		foreach ($status_codes as $index => $name) {

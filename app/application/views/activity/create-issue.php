@@ -1,7 +1,7 @@
 <li onclick="window.location='<?php echo $issue->to(); ?>';">
 
 	<div class="tag">
-		<label class="label important"><?php echo __('tinyissue.label_created'); ?></label>
+		<label class="label status-open"><?php echo __('tinyissue.label_created'); ?></label>
 	</div>
 
 	<div class="data">
@@ -10,7 +10,7 @@
 		<strong><?php echo $user->firstname . ' ' . $user->lastname; ?></strong>
 
 		<span class="time">
-			<?php echo date('F jS \a\t g:i A', strtotime($activity->created_at)); ?>
+			<span class="moment"><?php echo strtotime($activity->created_at); ?></span>
 		</span>
 	</div>
 

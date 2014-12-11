@@ -41,6 +41,7 @@ View::composer('layouts.wrapper', function($view)
 	Asset::style('app', 'app/assets/css/app.css');
 	Asset::script('jquery', 'app/assets/js/jquery.js');
 	Asset::script('jquery-ui', 'app/assets/js/jquery-ui.js');
+	Asset::script('moment-js', 'app/assets/js/moment.min.js', 'jquery');
 	Asset::script('app', 'app/assets/js/app.js', 'jquery-ui');
 
 	if(!isset($view->sidebar))
@@ -54,6 +55,7 @@ View::composer('layouts.project', function($view)
 	Asset::style('app', 'app/assets/css/app.css');
 	Asset::script('jquery', 'app/assets/js/jquery.js');
 	Asset::script('jquery-ui', 'app/assets/js/jquery-ui.js');
+	Asset::script('moment-js', 'app/assets/js/moment.min.js', 'jquery');
 	Asset::script('app', 'app/assets/js/app.js', 'jquery');
 	Asset::script('app2', 'app/assets/js/sortable-issues.js', 'jquery');
 

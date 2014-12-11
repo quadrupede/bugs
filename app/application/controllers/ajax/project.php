@@ -59,6 +59,12 @@ class Ajax_Project_Controller extends Base_Controller {
 	public function post_issue_assign()
 	{
 		Project\Issue::find(Input::get('issue_id'))->reassign(Input::get('user_id'));
+
+	}
+
+	public function post_issue_prioritize()
+	{
+		Project\Issue::find(Input::get('issue_id'))->prioritize(Input::get('priority_id'));
 	}
 
 	public function post_issue_upload_attachment()

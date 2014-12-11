@@ -140,6 +140,7 @@ class User extends Eloquent {
 
 						break;
 
+
 					default:
 
 						if(!isset($issues[$activity->item_id]))
@@ -209,16 +210,28 @@ class User extends Eloquent {
 
 					break;
 
-				default:
+					case 9:
 
-					$return[$project_id]['activity'][] = View::make('activity/' . $activity_type[$row->type_id]->activity, array(
-						'issue' => $issues[$row->item_id],
-						'project' => $projects[$project_id],
-						'user' => $users[$row->user_id],
-						'activity' => $row
-					));
+						$return[$project_id]['activity'][] = View::make('activity/' . $activity_type[$row->type_id]->activity, array(
+							                                                                                                     'issue' => $issues[$row->item_id],
+							                                                                                                     'project' => $projects[$project_id],
+							                                                                                                     'user' => $users[$row->user_id],
+							                                                                                                     'activity' => $row,
+							                                                                                                     'priority' => \Project\Issue\Priority::find($row->action_id),
+						                                                                                                     ));
 
-					break;
+						break;
+
+					default:
+
+						$return[$project_id]['activity'][] = View::make('activity/' . $activity_type[$row->type_id]->activity, array(
+							                                                                                                     'issue' => $issues[$row->item_id],
+							                                                                                                     'project' => $projects[$project_id],
+							                                                                                                     'user' => $users[$row->user_id],
+							                                                                                                     'activity' => $row
+						                                                                                                     ));
+
+						break;
 				}
 			}
 		}

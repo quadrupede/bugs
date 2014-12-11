@@ -124,5 +124,37 @@ return array(
         'was_created_by' => 'was created by',
         'was_reassigned_to' => 'was reassigned to',
         'dashboard_description' => 'An overview of all the activity involving your active projects.',
-		'fileupload_button' => 'Attach Files'
+		'fileupload_button' => 'Attach Files',
+
+	// Add by JD (translations needed here too )
+	'status_is_now' => 'Ticket is no in the status',
+
+	'resolving_issue' => 'Resolving ticket',
+	'resolving_issues' => 'Resolving tickets',
+
+	'testing_issue' => 'Testing ticket',
+	'testing_issues' => 'Testing tickets',
+
+	'fixing_issue' => 'Must fix ticket',
+	'fixing_issues' => 'Must fix tickets',
+
+	'is_ready_to_test' => 'is ready to test',
+	'is_resolving' => 'is currently resolving',
+
+	'test_issue' => 'Begin testing',
+	'resolve_issue' => 'Begin resolving',
+	'must_fix_issue' => 'Fix the ticket',
+
+	'label_opened' => 'Opened',
+	'label_testing' => 'Testing',
+	'label_resolving' => 'Resolving',
+	'label_must_fix' => 'Fixing',
+
+	'priority' => 'Priority',
+	'priority_to' => 'Change priority to',
+    'priority_normal' => 'Normal',
+    'priority_important' => 'Important',
+    'priority_urgent' => 'Urgent',
+    'priority_fix_now' => 'Fix now',
+    'priority_changed_to' => 'The priority has changed to',
 );

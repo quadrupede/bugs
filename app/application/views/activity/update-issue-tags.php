@@ -31,7 +31,7 @@
 			<?php endif; ?>
 		</div> 
 		<span class="time">
-			<?php echo date('F jS \a\t g:i A', strtotime($activity->created_at)); ?>
+			<span class="moment"><?php echo strtotime($activity->created_at); ?></span>
 		</span>
 	</div>
 

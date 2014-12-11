@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
 	'welcome' => 'Bienvenue',
 	'users' => 'Utilisateurs',
@@ -67,9 +67,12 @@ return array(
 	'no_one' => 'Aucun',
 	'close_issue' => 'Fermer le Ticket',
 	'close_issue_confirm' => 'Êtes-vous sûr de vouloir fermer ce Ticket ?',
+	'testing_issue' => 'Faire recetter le ticket',
+	'testing_issue_confirm' => 'Êtes-vous sûr ?',
 	'closed_by' => 'Fermé par',
 	'on' => 'sur',
 	'reopen' => 'Réouvrir',
+	'reopen_issue' => 'Réouvrir le Ticket',
 	'comment' => 'Commenter',
 	'edit_issue' => 'Modifier le Ticket',
 	'update_issue' => 'Mettre à jour le Ticket',
@@ -154,6 +157,36 @@ return array(
 	'tags_added' => 'tags ajoutés',
 	'tag_removed' => 'tag retiré',
 	'tags_removed' => 'tags retirés',
-	'fileupload_button' => 'Choisissez un fichier'
+	'fileupload_button' => 'Choisissez un fichier',
+	// Add by JD
+	'status_is_now' => 'Ticket is no in the status',
 
-);
+	'resolving_issue' => 'Resolving ticket',
+	'resolving_issues' => 'Resolving tickets',
+
+	'testing_issue' => 'Testing ticket',
+	'testing_issues' => 'Testing tickets',
+
+	'fixing_issue' => 'Must fix ticket',
+	'fixing_issues' => 'Must fix tickets',
+
+	'is_ready_to_test' => 'is ready to test',
+	'is_resolving' => 'is currently resolving',
+
+	'test_issue' => 'Begin testing',
+	'resolve_issue' => 'Begin resolving',
+	'must_fix_issue' => 'Fix the ticket',
+
+	'label_opened' => 'Opened',
+	'label_testing' => 'Testing',
+	'label_resolving' => 'Resolving',
+	'label_must_fix' => 'Fixing',
+
+	'priority' => 'Priority',
+	'priority_to' => 'Change priority to',
+    'priority_normal' => 'Normal',
+    'priority_important' => 'Important',
+    'priority_urgent' => 'Urgent',
+    'priority_fix_now' => 'Fix now',
+    'priority_changed_to' => 'The priority has changed to',
+];

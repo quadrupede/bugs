@@ -3,10 +3,10 @@
 		<div class="topbar">
 
 			<div class="data">
-				<label class="label status-open"><?php echo __('tinyissue.label_reopened'); ?></label> <?php echo __('tinyissue.to'); ?> <strong><?php echo $user->firstname . ' ' . $user->lastname; ?></strong>
+				<label class="label status-testing"><?php echo __('tinyissue.label_testing'); ?></label> <?php echo __('tinyissue.by'); ?> <strong><?php echo $user->firstname . ' ' . $user->lastname; ?></strong>
 				<span class="time">
 					<span class="moment"><?php echo strtotime($activity->created_at); ?></span>
-				</span>		
+				</span>
+			</div>
 		</div>
-	</div>
 </li>

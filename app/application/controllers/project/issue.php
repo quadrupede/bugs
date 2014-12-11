@@ -1,7 +1,7 @@
 <?php
 
-class Project_Issue_Controller extends Base_Controller {
-
+class Project_Issue_Controller extends Base_Controller
+{
 	public $layout = 'layouts.project';
 
 	public function __construct()
@@ -11,7 +11,7 @@ class Project_Issue_Controller extends Base_Controller {
 		$this->filter('before', 'project');
 		$this->filter('before', 'issue')->except('new');
 		$this->filter('before', 'permission:issue-modify')
-				->only(array('edit_comment', 'delete_comment', 'status', 'edit'));
+			->only(array('edit_comment', 'delete_comment', 'status', 'edit'));
 	}
 
 	/**
@@ -25,17 +25,19 @@ class Project_Issue_Controller extends Base_Controller {
 		Asset::add('tag-it-js', '/app/assets/js/tag-it.min.js', array('jquery', 'jquery-ui'));
 		Asset::add('tag-it-css-base', '/app/assets/css/jquery.tagit.css');
 		Asset::add('tag-it-css-zendesk', '/app/assets/css/tagit.ui-zendesk.css');
-		
-		return $this->layout->nest('content', 'project.issue.new', array(
-			'project' => Project::current()
-		));
+
+		return $this->layout->nest(
+			'content', 'project.issue.new', array(
+				         'project' => Project::current()
+			         )
+		);
 	}
 
 	public function post_new()
 	{
 		$issue = Project\Issue::create_issue(Input::all(), Project::current());
 
-		if(!$issue['success'])
+		if (!$issue['success'])
 		{
 			return Redirect::to(Project::current()->to('issue/new'))
 				->with_input()
@@ -56,17 +58,19 @@ class Project_Issue_Controller extends Base_Controller {
 	public function get_index()
 	{
 		/* Delete a comment */
-		if(Input::get('delete') && Auth::user()->permission('issue-modify'))
+		if (Input::get('delete') && Auth::user()->permission('issue-modify'))
 		{
 			Project\Issue\Comment::delete_comment(str_replace('comment', '', Input::get('delete')));
 
 			return true;
 		}
 
-		return $this->layout->nest('content', 'project.issue.index', array(
-			'issue' => Project\Issue::current(),
-			'project' => Project::current()
-		));
+		return $this->layout->nest(
+			'content', 'project.issue.index', array(
+				         'issue'   => Project\Issue::current(),
+				         'project' => Project::current()
+			         )
+		);
 	}
 
 	/**
@@ -76,7 +80,7 @@ class Project_Issue_Controller extends Base_Controller {
 	 */
 	public function post_index()
 	{
-		if(!Input::get('comment'))
+		if (!Input::get('comment'))
 		{
 			return Redirect::to(Project\Issue::current()->to() . '#new-comment')
 				->with('notice-error', __('tinyissue.you_put_no_comment'));
@@ -98,26 +102,28 @@ class Project_Issue_Controller extends Base_Controller {
 		Asset::add('tag-it-js', '/app/assets/js/tag-it.min.js', array('jquery', 'jquery-ui'));
 		Asset::add('tag-it-css-base', '/app/assets/css/jquery.tagit.css');
 		Asset::add('tag-it-css-zendesk', '/app/assets/css/tagit.ui-zendesk.css');
-		
+
 		/* Get tags as string */
 		$issue_tags = '';
-		foreach(Project\Issue::current()->tags as $tag)
+		foreach (Project\Issue::current()->tags as $tag)
 		{
 			$issue_tags .= (!empty($issue_tags) ? ',' : '') . $tag->tag;
 		}
-		
-		return $this->layout->nest('content', 'project.issue.edit', array(
-			'issue' => Project\Issue::current(),
-			'issue_tags' => $issue_tags,
-			'project' => Project::current()
-		));
+
+		return $this->layout->nest(
+			'content', 'project.issue.edit', array(
+				         'issue'      => Project\Issue::current(),
+				         'issue_tags' => $issue_tags,
+				         'project'    => Project::current()
+			         )
+		);
 	}
 
 	public function post_edit()
 	{
 		$update = Project\Issue::current()->update_issue(Input::all());
 
-		if(!$update['success'])
+		if (!$update['success'])
 		{
 			return Redirect::to(Project\Issue::current()->to('edit'))
 				->with_input()
@@ -138,11 +144,11 @@ class Project_Issue_Controller extends Base_Controller {
 	 */
 	public function post_edit_comment()
 	{
-		if(Input::get('body'))
+		if (Input::get('body'))
 		{
 			$comment = Project\Issue\Comment::find(str_replace('comment', '', Input::get('id')))
-					->fill(array('comment' => Input::get('body')))
-					->save();
+				->fill(array('comment' => Input::get('body')))
+				->save();
 
 			return Project\Issue\Comment::format(Input::get('body'));
 		}
@@ -170,15 +176,29 @@ class Project_Issue_Controller extends Base_Controller {
 	 */
 	public function get_status()
 	{
-		$status = Input::get('status', 0);
+		$status = Input::get('status', \Project\Issue\Status::STATUS_CLOSED);
 
-		if($status == 0)
+		switch ($status)
 		{
-			$message = __('tinyissue.issue_has_been_closed');
-		}
-		else
-		{
-			$message = __('tinyissue.issue_has_been_reopened');
+			case \Project\Issue\Status::STATUS_OPENED:
+				$message = __('tinyissue.issue_has_been_reopened');
+				break;
+
+			case \Project\Issue\Status::STATUS_CLOSED:
+				$message = __('tinyissue.issue_has_been_closed');
+				break;
+
+			case \Project\Issue\Status::STATUS_RESOLVING:
+				$message = __('tinyissue.issue_is_resolving');
+				break;
+
+			case \Project\Issue\Status::STATUS_TESTING:
+				$message = __('tinyissue.issue_is_testing');
+				break;
+
+			case \Project\Issue\Status::STATUS_MUSTFIX:
+				$message = __('tinyissue.issue_must_be_fix');
+				break;
 		}
 
 		Project\Issue::current()->change_status($status);
@@ -186,5 +206,4 @@ class Project_Issue_Controller extends Base_Controller {
 		return Redirect::to(Project\Issue::current()->to())
 			->with('notice', $message);
 	}
-
 }

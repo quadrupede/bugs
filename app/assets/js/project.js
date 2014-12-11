@@ -207,3 +207,35 @@ function assign_issue_to_user(user_id, issue_id, callback){
       callback();
    });
 }
+
+
+
+
+
+
+function issue_priority_change(priority_id, issue_id){
+	saving_toggle();
+
+	prioritize_issue_to(priority_id, issue_id, function(){
+
+		var prioritized_to = $('.prioritized-to');
+		var prioritize = prioritized_to.find('.prioritize' + priority_id);
+
+		prioritized_to.find('.prioritized').removeClass('prioritized');
+		prioritize.addClass('prioritized');
+		prioritized_to.find('.currently_prioritized').html(prioritize.html());
+
+		saving_toggle();
+	});
+
+}
+
+function prioritize_issue_to(priority_id, issue_id, callback){
+	$.post(siteurl + 'ajax/project/issue_prioritize', {
+		priority_id : priority_id,
+		issue_id : issue_id
+	}, function(){
+		callback();
+	});
+}
+

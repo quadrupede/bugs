@@ -369,6 +369,7 @@ class View implements ArrayAccess {
 	 */
 	public function get()
 	{
+		error_log("get ". $this->path);
 		$__data = $this->data();
 
 		// The contents of each view file is cached in an array for the

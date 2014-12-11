@@ -1,6 +1,7 @@
 <h3>
 	<?php echo __('tinyissue.create_a_new_issue'); ?>
-	<span><?php echo __('tinyissue.create_a_new_issue_in'); ?> <a href="<?php echo $project->to(); ?>"><?php echo $project->name; ?></a></span>
+	<span><?php echo __('tinyissue.create_a_new_issue_in'); ?> <a
+			href="<?php echo $project->to(); ?>"><?php echo $project->name; ?></a></span>
 </h3>
 
 <div class="pad">
@@ -11,7 +12,7 @@
 			<tr>
 				<th style="width: 10%"><?php echo __('tinyissue.title'); ?></th>
 				<td>
-					<input type="text" name="title" style="width: 98%;" value="<?php echo Input::old('title'); ?>" />
+					<input type="text" name="title" style="width: 98%;" value="<?php echo Input::old('title'); ?>"/>
 
 					<?php echo $errors->first('title', '<span class="error">:message</span>'); ?>
 				</td>
@@ -19,52 +20,61 @@
 			<tr>
 				<th><?php echo __('tinyissue.issue'); ?></th>
 				<td>
-					<textarea name="body" style="width: 98%; height: 150px;"><?php echo Input::old('body'); ?></textarea>
+					<textarea name="body"
+					          style="width: 98%; height: 150px;"><?php echo Input::old('body'); ?></textarea>
 					<?php echo $errors->first('body', '<span class="error">:message</span>'); ?>
 				</td>
 			</tr>
 
-		<tr>
-			<th><?php echo __('tinyissue.tags'); ?></th>
+			<tr>
+				<th><?php echo __('tinyissue.tags'); ?></th>
 				<td>
-					<?php echo Form::text('tags', Input::old('tags', Tag::find(1)->first()->tag), array('id' => 'tags')); ?>
+					<?php echo Form::text('tags', Input::old('tags'), array('id' => 'tags')); ?>
 					<?php echo $errors->first('tags', '<span class="error">:message</span>'); ?>
 					<script type="text/javascript">
-					$(function(){
-						$('#tags').tagit({
-							autocomplete: {
-								source: '<?php echo URL::to('ajax/tags/suggestions/edit'); ?>'
-							}
+						$(function () {
+							$('#tags').tagit({
+								autocomplete: {
+									source: '<?php echo URL::to('ajax/tags/suggestions/edit'); ?>'
+								}
+							});
 						});
-					});
 					</script>
 				</td>
-		</tr>
+			</tr>
 
-
-			<?php if(Auth::user()->permission('issue-modify')): ?>
 			<tr>
-				<th><?php echo __('tinyissue.assigned_to'); ?></th>
+				<th><?php echo __('tinyissue.priority'); ?></th>
 				<td>
-					<?php echo Form::select('assigned_to', array(0 => '') + Project\User::dropdown($project->users()->get()), $project->default_assignee); ?>
+					<?php echo Form::select('priority', Project\Issue\Priority::dropdown(\Project\Issue\Priority::order_by('id')->get())); ?>
 				</td>
 			</tr>
+
+			<?php if (Auth::user()->permission('issue-modify')): ?>
+				<tr>
+					<th><?php echo __('tinyissue.assigned_to'); ?></th>
+					<td>
+						<?php echo Form::select('assigned_to', array(0 => '') + Project\User::dropdown($project->users()->get()), $project->default_assignee); ?>
+					</td>
+				</tr>
 			<?php endif; ?>
 			<tr>
 				<th><?php echo __('tinyissue.attachments'); ?></th>
 				<td>
 					<div class="upload-wrap green-button">
 						<?php echo __('tinyissue.fileupload_button'); ?>
-						<input id="upload" type="file" name="file_upload" class="green-button" />
-						<input type="hidden" id="uploadbuttontext" name="uploadbuttontext" value="<?php echo __('tinyissue.fileupload_button'); ?>"/>
+						<input id="upload" type="file" name="file_upload" class="green-button"/>
+						<input type="hidden" id="uploadbuttontext" name="uploadbuttontext"
+						       value="<?php echo __('tinyissue.fileupload_button'); ?>"/>
 					</div>
-					
+
 					<ul id="uploaded-attachments"></ul>
 				</td>
 			</tr>
 			<tr>
 				<th></th>
-				<td><input type="submit" value="<?php echo __('tinyissue.create_issue'); ?>" class="button primary" /></td>
+				<td><input type="submit" value="<?php echo __('tinyissue.create_issue'); ?>" class="button primary"/>
+				</td>
 			</tr>
 		</table>
 

@@ -2,7 +2,7 @@
 
 	<div class="insides">
 		<div class="topbar">		
-			<label class="label warning"><?php echo __('tinyissue.label_reassigned'); ?></label> <?php echo __('tinyissue.to'); ?>
+			<label class="label status-reassigned"><?php echo __('tinyissue.label_reassigned'); ?></label> <?php echo __('tinyissue.to'); ?>
 			<?php if($activity->action_id > 0): ?>
 			<strong><?php echo $assigned->firstname . ' ' . $assigned->lastname; ?></strong>
 			<?php else: ?>
@@ -12,7 +12,7 @@
 			<strong><?php echo $user->firstname . ' ' . $user->lastname; ?></strong>
 
 			<span class="time">
-				<?php echo date('F jS \a\t g:i A', strtotime($activity->created_at)); ?>
+				<span class="moment"><?php echo strtotime($activity->created_at); ?></span>
 			</span>
 		</div>
 

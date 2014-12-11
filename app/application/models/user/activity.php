@@ -4,8 +4,17 @@ class Activity extends \Eloquent {
 
 	public static $table = 'users_activity';
 	public static $timestamps = true;
-	
-	
+
+	const CREATE_ISSUE = 1;
+	const COMMENT = 2;
+	const CLOSE_ISSUE = 3;
+	const REOPEN_ISSUE = 4;
+	const REASSIGN_ISSUE = 5;
+	const UPDATE_ISSUE_TAGS = 6;
+	const TESTING_ISSUE = 7;
+	const RESOLVING_ISSUE  = 8;
+	const CHANGE_PRIORITY  = 9;
+
 	public function user()
 	{
 		return $this->belongs_to('\User');
@@ -21,6 +30,7 @@ class Activity extends \Eloquent {
 	{
 		return $this->belongs_to('Activity', 'type_id');
 	}
+		
 		
 	/**
 	* Add an activity action

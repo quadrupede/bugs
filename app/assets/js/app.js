@@ -12,6 +12,15 @@ $(function(){
    		$('.global-notice').slideUp();
    	});
    }
+	moment.locale(window.navigator.language);
+	$('.moment').each(function()
+	{
+		var html = $(this).html();
+		var time = parseInt(html, 10)*1000;
+		var thisMoment = moment(isNaN(time) ? html : time);
+		$(this).html(thisMoment.fromNow());
+	});
+
 });
 
 var saving = false;

@@ -103,16 +103,20 @@ code{
 
 /* Labels */
 .label {
-  padding: 4px 4px 4px;
-  font-size: 9.75px;
-  font-weight: bold;
-  color: #ffffff;
-  text-transform: uppercase;
-  white-space: nowrap;
-  background-color: #bfbfbf;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
+	padding: 4px 4px 4px;
+	font-size: 9.75px;
+	font-weight: bold;
+	color: #ffffff;
+	text-transform: uppercase;
+	white-space: nowrap;
+	background-color: #bfbfbf;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+.label.label-mini {
+	padding: 3px;
+	font-size: 7px;
 }
 .label.important {
   background-color: #c43c35;
@@ -127,7 +131,52 @@ code{
   background-color: #62cffc;
 }
 .label.info {
-  background-color: #5f6074;
+	background-color: #5f6074;
+}
+/* Status */
+.label.status-reassigned {
+	background-color: #9b12c5;
+}
+.label.status-created,
+.label.status-open {
+	background-color: #44ac29;
+}
+.label.status-resolving {
+	background-color: #1b9457;
+}
+.label.status-testing {
+	background-color: #2fc5a8;
+}
+.label.status-must_fix,
+.label.status-must-fix {
+	background-color: #d87314;
+}
+.label.status-close {
+	background-color: #c6341d;
+}
+.label.priority {
+	content: "";
+	font-size: 24px;
+	background: none;
+}
+.label.priority.priority-important:before {
+	content: "\2022";
+}
+.label.priority.priority-urgent:before {
+	content: "\2022\2022";
+}
+.label.priority.priority-fix_now:before {
+	content: "\2022\2022\2022";
+	word-spacing: -10px;
+}
+.label.priority.priority-important {
+	color: #e89927;
+}
+.label.priority.priority-urgent {
+	color: #e86328;
+}
+.label.priority.priority-fix_now {
+	color: #e82519;
 }
 /* Notices */
 .global-notice{
@@ -174,6 +223,10 @@ code{
 }
 .global-saving:hover, .global-notice:hover{
 	text-decoration: none;
+}
+.error {
+	color: #CC0000;
+	padding: 3px 0;
 }
 
 textarea, input[type=text], input[type=password]{
@@ -690,48 +743,60 @@ p{
 }
 .issue-actions{
 	float: right;
+	height: 20px;
 }
 .issue-actions > li{
 	float: left;
+	margin-right: 14px;
 }
-.issue-actions .assigned-to{
+.issue-actions .assigned-to,
+.issue-actions .prioritized-to
+{
 	border-right: 1px solid #b4b4b4;
 	padding-right: 14px;
-	margin-right: 14px;
 	position: relative;
 	overflow: visible;
 }
-.issue-actions .assigned-to .currently_assigned{
+.issue-actions .assigned-to .currently_assigned,
+.issue-actions .prioritized-to .currently_prioritized{
 	display: inline-block;
 	background: url('../images/layout/dropdown-arrow.png') no-repeat right center;
 	min-height: 10px;
 	padding-right: 19px;
 }
-.issue-actions .assigned-to:hover .dropdown{
+.issue-actions .assigned-to:hover .dropdown,
+.issue-actions .prioritized-to:hover .dropdown{
 	display: block;
 }
-.issue-actions .assigned-to .dropdown{
+.issue-actions .assigned-to .dropdown,
+.issue-actions .prioritized-to .dropdown{
 	display: none;
 	position: absolute; top: 0; right: 1px;
 	padding-top: 26px;
 	background: url('../images/layout/dropdown-top-arrow.png') 173px 20px no-repeat;
 }
-.issue-actions .assigned-to .dropdown ul{
+.issue-actions .assigned-to .dropdown ul,
+.issue-actions .prioritized-to .dropdown ul{
 	border-radius: 4px;
 	background: #3c4352;
 	padding: 5px 0;
 }
-.issue-actions .assigned-to .dropdown ul li{
+.issue-actions .assigned-to .dropdown ul li,
+.issue-actions .prioritized-to .dropdown ul li{
 
 }
-.issue-actions .assigned-to .dropdown ul li a{
+.issue-actions .assigned-to .dropdown ul li a,
+.issue-actions .prioritized-to .dropdown ul li a{
 	padding: 12px 9px;
 	display: block;
 	color: #7e889b;
 	font-weight: normal;
 	width: 180px;
 }
-.issue-actions .assigned-to .dropdown ul li a.assigned, .issue-actions .assigned-to .dropdown ul li:hover a{
+.issue-actions .assigned-to .dropdown ul li a.assigned,
+.issue-actions .prioritized-to .dropdown ul li a.assigned,
+.issue-actions .assigned-to .dropdown ul li:hover a,
+.issue-actions .prioritized-to .dropdown ul li:hover a{
 	background: #485060;
 	color: #fff;
 }
@@ -915,7 +980,6 @@ p{
 .sortable-li,
 ul.isssues li {
 	line-height: 1.2em;
-	height: 25px;
 }
 #sortable-save {
 	margin-top: 10px;

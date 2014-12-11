@@ -36,8 +36,8 @@ CREATE TABLE IF NOT EXISTS `projects_issues` (
   `updated_by` bigint(20) default NULL,
   `assigned_to` bigint(20) default NULL,
   `project_id` bigint(20) default NULL,
-  `status` tinyint(2) default '1',
-  `weight` bigint(20) default '1',
+  `status_id` tinyint(2) default '1',
+  `weight` tinyint(2) default '1',
   `title` varchar(255) character set UTF8 default NULL,
   `body` text character set UTF8,
   `created_at` datetime default NULL,
@@ -207,13 +207,17 @@ INSERT IGNORE INTO `roles_permissions` (`id`, `role_id`, `permission_id`) VALUES
 	(20, 4, 4);",
 
 " #Insert Activity Types
-INSERT IGNORE INTO `activity` (`id`, `description`, `activity`)
+INSERT INTO `activity` (`id`, `description`, `activity`)
 VALUES
-	(1,'Opened a new issue','create-issue'),
-	(2,'Commented on a issue','comment'),
-	(3,'Closed an issue','close-issue'),
-	(4,'Reopened an issue','reopen-issue'),
-	(5,'Reassigned an issue','reassign-issue');
+	(1, 'Opened a new issue', 'create-issue'),
+	(2, 'Commented on a issue', 'comment'),
+	(3, 'Closed an issue', 'close-issue'),
+	(4, 'Reopened an issue', 'reopen-issue'),
+	(5, 'Reassigned an issue', 'reassign-issue'),
+	(6, 'Updated issue tags', 'update-issue-tags'),
+	(7, 'Issue ready for testing', 'testing-ready-issue'),
+	(8, 'Resolving issue', 'resolving-issue'),
+	(9, 'Change priority', 'change-priority');
 ",
 "-- create tags table
 CREATE TABLE `tags` (
@@ -226,16 +230,6 @@ CREATE TABLE `tags` (
   UNIQUE KEY `tag` (`tag`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE 'utf8_general_ci';
 
--- create default tags
-TRUNCATE `tags`;
-INSERT INTO `tags` (`id`, `tag`, `bgcolor`, `created_at`, `updated_at`) VALUES
-(1,	'status:open',	'#c43c35',	'2013-11-30 11:23:01',	'2013-11-30 11:23:01'),
-(2,	'status:closed',	'#46a546',	'2013-11-30 11:23:01',	'2013-11-30 11:23:01'),
-(3,	'type:feature',	'#62cffc',	'2013-11-30 11:23:01',	'2013-11-30 11:23:01'),
-(4,	'type:bug',	'#f89406',	'2013-11-30 11:23:01',	'2013-11-30 11:23:01'),
-(6,	'resolution:won''t fix',	'#812323',	'2013-11-30 11:23:01',	'2013-11-30 11:23:01'),
-(7,	'resolution:fixed',	'#048383',	'2013-11-30 11:23:01',	'2013-11-30 11:23:01'),
-(8,	'status:testing',	'#6c8307',	'2013-11-30 11:23:01',	'2013-11-30 11:23:01');
 
 -- create issue-tag relationship table
 CREATE TABLE `projects_issues_tags` (
@@ -248,14 +242,42 @@ CREATE TABLE `projects_issues_tags` (
   UNIQUE KEY `issue_tag` (`issue_id`,`tag_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- import open/closed states
-INSERT INTO projects_issues_tags (issue_id, tag_id, created_at, updated_at)
-(
-	SELECT id as issue_id, IF(status = 1, 1, 2) as tag_id, NOW(), NOW()
-	FROM projects_issues
-);
 
--- create activity type for tag update
-INSERT INTO `activity` (`id`, `description`, `activity`)
-VALUES ('6', 'Updated issue tags', 'update-issue-tags');"
+-- create issue-priority relationship table
+CREATE TABLE `projects_issues_priority` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) DEFAULT NULL,
+  `description` text,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- insert issue priorities
+INSERT INTO `projects_issues_priority` (`id`, `name`, `description`)
+VALUES
+	(1, 'normal', 'Normal'),
+	(2, 'important', 'Important'),
+	(3, 'urgent', 'Urgent, please fix quickly'),
+	(4, 'fix_now', 'Must fix now');
+
+-- create issue-status relationship table
+CREATE TABLE `projects_issues_status` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) DEFAULT NULL,
+  `description` text,
+  `color` varchar(7) DEFAULT NULL,
+  `workflow_order` tinyint(4) DEFAULT NULL,
+  `is_open` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- insert issue statuses
+INSERT INTO `projects_issues_status` (`id`, `name`, `description`, `workflow_order`, `is_open`)
+VALUES
+	(1, 'created', 'Just created', 1, 1),
+	(2, 'closed', 'Closed', 5, 0),
+	(3, 'testing', 'Testing', 3, 1),
+	(4, 'resolving', 'Resolving', 2, 1),
+	(5, 'must_fix', 'Must fix', 4, 1);
+
+"
 );

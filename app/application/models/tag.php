@@ -1,6 +1,6 @@
 <?php
 
-class Tag extends Eloquent {
+class Tag extends \Eloquent {
 
 	public static $table = 'tags';
 	public static $hidden = array('created_at', 'updated_at');

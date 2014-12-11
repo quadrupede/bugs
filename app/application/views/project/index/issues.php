@@ -21,7 +21,7 @@
 				<tr>
 					<th style="width: 10%"><?php echo __('tinyissue.sort_by'); ?></th>
 					<td style="width: 90%">
-						<?php echo Form::select('sort_by', $sort_options, Input::get('sort_by', '')); ?>
+						<?php echo Form::select('sort_by', $status_sort_options, Input::get('sort_by', '')); ?>
 						<?php echo Form::select('sort_order', array('asc' => __('tinyissue.sort_asc'), 'desc' => __('tinyissue.sort_desc')), $sort_order); ?>
 					</td>
 				</tr>
@@ -47,10 +47,12 @@
 		<p><?php echo __('tinyissue.no_issues'); ?></p>
 		<?php else: ?>
 		<ul class="issues" id="sortable">
-			<?php foreach($issues as $row):  ?>
+			<?php
+			/** @var Project\Issue $row */
+			foreach($issues as $row):  ?>
 			<li class="sortable-li" data-issue-id="<?php echo $row->id; ?>">
 				<a href="" class="comments"><?php echo $row->comment_count(); ?></a>
-				
+
 				<?php if(!empty($row->tags)): ?>
 				<div class="tags">
 				<?php foreach($row->tags()->order_by('tag', 'ASC')->get() as $tag): ?>
@@ -61,7 +63,11 @@
 
 				<a href="" class="id">#<?php echo $row->id; ?></a>
 				<div class="data">
-					<a href="<?php echo $row->to(); ?>"><?php echo $row->title; ?></a>
+					<label class="label label-mini status-<?php echo $row->status->name ?>"><?php echo __('tinyissue.label_'.$row->status->name) ?></label>
+					<a class="issue-title" href="<?php echo $row->to(); ?>"><?php echo $row->title; ?></a>
+					<?php if($row->priority) : ?>
+					<label class="label priority priority-<?php echo $row->priority->name ?>" title="<?php __('tinyissue.priority_'.$row->priority->name) ?>"></label>
+					<?php endif; ?>
 					<div class="info">
 						<?php echo __('tinyissue.created_by'); ?>
 						<strong><?php echo $row->user->firstname . ' ' . $row->user->lastname; ?></strong>
@@ -76,7 +82,7 @@
 						<?php endif; ?>
 
 						<?php if($row->assigned_to != 0): ?>
-							- <?php echo __('tinyissue.assigned_to'); ?>
+							<br/>- <?php echo __('tinyissue.assigned_to'); ?>
 							<strong><?php echo $row->assigned->firstname . ' ' . $row->assigned->lastname; ?></strong>
 						<?php endif; ?>
 
